@@ -1,0 +1,62 @@
+/* Setting variables for the page   */
+
+:root {
+    --primary-color: black;
+    --bg-color: purple;
+    --light-text: white;
+}
+
+*,
+html {
+    padding: 1px;
+    margin: 1px;
+}
+
+html,
+body {
+    width: 100vw;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header div {
+    background-color: var(--bg-color);
+    width: 20vw;
+    height: 30px;
+}
+
+header div h1 {
+    font-size: 18px;
+    color: var(--light-text);
+}
+
+main {
+    margin: 10% auto;
+    background-color: var(--bg-color);
+    width: 50vw;
+    height: 50vh;
+    align-content: center;
+}
+
+article h2 {
+    text-align: center;
+}
+
+article h3 {}
+
+
+/* Creating class for float left and right  */
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.right {
+    text-align: right;
+}
