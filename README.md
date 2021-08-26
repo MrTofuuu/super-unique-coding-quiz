@@ -7,7 +7,7 @@ Welcome to my Super Unique Coding Quiz!!!!
 This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean, polished, and responsive user interface. 
 
 ### **Tasks completed**
-1. Created html, css, js
+1. Created html for main page and high score, css, js
 
 
 

@@ -10,23 +10,25 @@
 </head>
 
 <body>
-    <header>
-        <div class="float-left">
-            <!-- top left -->
-            <h1>View Highscores</h1>
+    <div class="container">
+        <div id="quiz" class="justify-center flex-column">
+            <div id="highScores">
+                <p class="highScoreDisplay" id="highScore"><a href="#">View Highscores</a></p>
+            </div>
+            <div class="timeLeft">
+                <p class="timeDisplay" id="time">Time: </p>
+            </div>
+            <div id="question">Coding Quiz goes here</div>
 
+            <p class="answer" data-number=1>Superman</p>
+
+            <p class="answer" data-number=2>Saitama</p>
+
+            <p class="answer" data-number=3>Goku</p>
+
+            <p class="answer" data-number=4>Captain America</p>
         </div>
-        <div class="float-right">
-            <!-- top right -->
-            <h1 class="right">Time: 0</h1>
-        </div>
-    </header>
-    <main>
-        <article>
-            <h2>Coding Quiz Challenge</h2>
-            <h3>To answer code-related questions, </h3>
-        </article>
-    </main>
+    </div>
     <script src="./assets/js/script.js"></script>
 </body>
 
