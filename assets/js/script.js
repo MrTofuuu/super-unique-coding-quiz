@@ -1,9 +1,12 @@
+// Query selectors to keep as a variable 
 const question = document.querySelector("#question");
 const answers = document.querySelector(".answers");
-
+const timeEl = document.querySelector("#time");
+//Variables to store arrays and items to be used for questions
 let currentQuestion = {};
-let clickAnswer = true;
+let isClickAnswer = true;
 let questionLeft = [];
+// Pool of questions to be used
 let questionPool = [{
     question: "Who is going to be the future Pirate King",
     answer1: "Luffy",
@@ -78,10 +81,12 @@ let questionPool = [{
 
 function init() {
     //clear timer and reset page to show default start screen
+    //hide time
 }
 
 function startGame() {
     //click start to start game
+
 }
 
 function winGame() {
@@ -94,10 +99,35 @@ function loseGame() {
 
 function startCountdown() {
     //set the timer to count down
+    var timeLeft = 30;
+
+    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
+    var timeInterval = setInterval(function() {
+        // As long as the `timeLeft` is greater than 1
+        if (timeLeft > 1) {
+            // Set the `textContent` of `timeEl` to show the remaining seconds
+            timeEl.textContent = 'Time: ' + timeLeft;
+            // Decrement `timeLeft` by 1
+            timeLeft--;
+        } else if (!isClickAnswer) {
+            // Decrement 'timeLeft' by 10 for penalty 
+            timeLeft - 10;
+            // Set the `textContent` of `timeEl` to show the remaining seconds
+            timeEl.textContent = 'Time: ' + timeLeft;
+        } else {
+            // Once `timeLeft` gets to 0, set `timeEl` to an empty string
+            timeEl.textContent = '';
+            // Use `clearInterval()` to stop the timer
+            clearInterval(timeInterval);
+            // Call the `loseGame()` function
+            loseGame();
+        }
+    }, 1000);
 }
 
 function renderQuestion() {
     //display question and answers
+
 }
 
 //need an event listener to listen for the correct answer button being pressed
