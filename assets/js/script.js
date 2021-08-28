@@ -5,6 +5,7 @@ const timeEl = document.querySelector("#time");
 //Variables to store arrays and items to be used for questions
 let currentQuestion = {};
 let isClickAnswer = true;
+let questionCounter;
 let questionLeft = [];
 // Pool of questions to be used
 let questionPool = [{
@@ -86,15 +87,22 @@ function init() {
 
 function startGame() {
     //click start to start game
+    startCountdown();
+    renderQuestion();
 
 }
 
 function winGame() {
     //print you won game and add put saving the score here?
+    //stop time
+
 }
 
 function loseGame() {
     //print you lost
+    //if (timeLeft===0){
+    // you lose
+    // }
 }
 
 function startCountdown() {
@@ -127,6 +135,11 @@ function startCountdown() {
 
 function renderQuestion() {
     //display question and answers
+    //display the question
+    var currentQuestion =
+        //randomize the question, i think this would work
+        // var questionDisplay = Math.floor(Math.random() * questionLeft.length);
+        // currentQuestion= questionLeft[questionDisplay];
 
 }
 
