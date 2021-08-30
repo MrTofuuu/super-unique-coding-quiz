@@ -3,7 +3,10 @@
 :root {
     --primary-color: black;
     --bg-color: purple;
-    --light-text: white;
+    --light: white;
+    --hue-neutral: 200;
+    --hue-wrong: 0;
+    --hue-correct: 145;
 }
 
 * {
@@ -15,12 +18,25 @@
 
 html,
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 100vw;
+    background-color: hsl(var(--hue), 100%, 20%);
 }
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background: var(--bg-color);
+}
+
+body.correct {
+    --hue: var(--hue-correct);
+}
+
+body.wrong {
+    --hue: var(--hue-wrong);
 }
 
 header div {
@@ -48,19 +64,16 @@ article h2 {
     text-align: center;
 }
 
-article h3 {}
-
 
 /* Creating class for float left and right  */
 
 .container {
-    width: 100vw;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 80rem;
-    margin: 0 auto;
+    width: 800px;
+    max-width: 80%;
+    background-color: var(--light);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px 2px;
 }
 
 .flex-column {
@@ -86,26 +99,63 @@ article h3 {}
 }
 
 .btn {
-    font-size: 3rem;
-    padding: 3rem;
-    width: 40rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    text-decoration: none;
-    color: var(--light-text);
-    background: var(--bg-color);
-    border-radius: 6px;
+    --hue: var(--hue-neutral);
+    border: 1px solid hsl(var(--hue), 100%, 30%);
+    background-color: hsl(var(--hue), 100%, 50%);
+    /* background-color: var(--bg-color); */
+    /* border: 1px solid; */
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--light);
+    outline: none;
 }
 
 .btn:hover {
     cursor: pointer;
     transition: transform 200ms;
-    transform: scale(1.06);
+    transform: scale(1.01);
 }
 
 .btn[disabled]:hover {
     cursor: not-allowed;
     transform: none;
+}
+
+.btn:hover {
+    border-color: black;
+}
+
+.btn.correct {
+    --hue: var(--hue-correct);
+    color: black;
+}
+
+.btn.wrong {
+    --hue: var(--hue-wrong);
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.start-btn,
+.next-btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide {
+    display: none;
 }
 
 .choice-container {

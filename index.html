@@ -11,22 +11,31 @@
 
 <body>
     <div class="container">
-        <div id="quiz" class="justify-center flex-column">
+        <div id="quiz-container" class="hide">
+            <div id="question">Coding Quiz goes here</div>
+            <div id="answers" class="btn-grid">
+
+                <button class="btn">Superman</button>
+
+                <button class="btn">Saitama</button>
+
+                <button class="btn">Goku</button>
+
+                <button class="btn">Captain America</button>
+
+            </div>
+
             <div id="highScores">
-                <p class="highScoreDisplay" id="highScore"><a href="#">View Highscores</a></p>
+                <p class="highScoreDisplay" id="highScore"><a href="score.html">View Highscores</a></p>
             </div>
             <div class="timeLeft">
                 <p class="timeDisplay" id="time" data-state="hidden">Time: </p>
             </div>
-            <div id="question">Coding Quiz goes here</div>
-
-            <p class="answer" data-number=1>Superman</p>
-
-            <p class="answer" data-number=2>Saitama</p>
-
-            <p class="answer" data-number=3>Goku</p>
-
-            <p class="answer" data-number=4>Captain America</p>
+        </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">Start</button>
+            <button id="next-btn" class="next-btn btn hide">Next</button>
+            <button id="end-btn" class="next-btn btn hide">End Game</button>
         </div>
     </div>
     <script src="./assets/js/script.js"></script>

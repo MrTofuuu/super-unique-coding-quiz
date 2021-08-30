@@ -5,11 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Highscores</title>
+    <title>Super Unique Coding Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 <body>
-    <h1>Highscores</h1>
+    <div class="container">
+        <h1>HIGH SCORES</h1>
+        <form id="scores-form" method="POST">
+            <label for="scores-text">Enter in your Initials</label>
+            <input type="text" placeholder="Enter in your initials" name="scores-text" id="scores-text" />
+        </form>
+        <p>High Scores List: <span id="scores-count">0</span></p>
+        <ul id="scores-list"></ul>
+    </div>
+    <script src="./assets/js/scores.js"></script>
 </body>
 
 </html>
