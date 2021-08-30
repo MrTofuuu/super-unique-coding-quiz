@@ -1,83 +1,113 @@
 // Query selectors to keep as a variable 
-const question = document.querySelector("#question");
-const answers = document.querySelector(".answers");
+const startBtn = document.querySelector("#start-btn")
+const nextBtn = document.querySelector("#next-btn")
+const endBtn = document.querySelector("#end-btn")
+const quizContainer = document.querySelector("#quiz-container");
+const questionEl = document.querySelector("#question")
+const answersEl = document.querySelector("#answers");
 const timeEl = document.querySelector("#time");
-//Variables to store arrays and items to be used for questions
+
+//event listener variables
+startBtn.addEventListener('click', startGame)
+nextBtn.addEventListener('click', function() {
+    questionIndex++;
+    nextQuestion();
+    checkWin();
+})
+endBtn.addEventListener('click', winGame)
+    //Variables to store arrays and items to be used for questions
+var isWin = false;
+var timerCount;
+var timer;
 let currentQuestion = {};
 let isClickAnswer = true;
 let questionCounter;
+let questionIndex = 0;
+var score = 0;
 let questionLeft = [];
 // Pool of questions to be used
-let questionPool = [{
+const questionPool = [{
     question: "Who is going to be the future Pirate King",
-    answer1: "Luffy",
-    answer2: "Zoro",
-    answer3: "Blackbeard",
-    answer4: "Whitebeard",
-    correct: 1
+    answers: [
+        { text: "Luffy", correct: true },
+        { text: "Zoro", correct: false },
+        { text: "Blackbeard", correct: false },
+        { text: "Whitebeard", correct: false }
+    ]
 }, {
     question: "Who is the pirate that owned One Piece",
-    answer1: "\"Red-Haired\" Shanks",
-    answer2: "Monkey D. Dragon",
-    answer3: "Portgas D. Ace",
-    answer4: "Gol D. Roger",
-    correct: 4
+    answers: [
+        { text: "\"Red-Haired\" Shanks", correct: false },
+        { text: "Monkey D. Dragon", correct: false },
+        { text: "Portgas D. Ace", correct: false },
+        { text: "Gol D. Roger", correct: true }
+    ]
 }, {
     question: "The show One Piece is based loosely off of what epic?",
-    answer1: "The Illiad",
-    answer2: "Journey to the West",
-    answer3: "The Odyssey",
-    answer4: "Tales from the Crypt",
-    correct: 2
+    answers: [
+        { text: "Illiad", correct: false },
+        { text: "Journey to the West", correct: true },
+        { text: "The Odyssey", correct: false },
+        { text: "Tales from the Crypt", correct: false }
+    ]
 }, {
     question: "What is the name of Luffy's crew?",
-    answer1: "Strawhats",
-    answer2: "Kid",
-    answer3: "Barto Club",
-    answer4: "Heart",
-    correct: 1
+    answers: [
+        { text: "Strawhats", correct: true },
+        { text: "Kid", correct: false },
+        { text: "Barto Club", correct: false },
+        { text: "Heart", correct: false }
+    ]
 }, {
     question: "Who is the captain of the Luffy Fan club",
-    answer1: "Bartolomeo",
-    answer2: "Sanji",
-    answer3: "Rayleigh",
-    answer4: "Sabo",
-    correct: 1
+    answers: [
+        { text: "Bartolomeo", correct: true },
+        { text: "Sanji", correct: false },
+        { text: "Rayleigh", correct: false },
+        { text: "Sabo", correct: false }
+    ]
 }, {
     question: "What devil fruit did Luffy eat?",
-    answer1: "Bara Bara",
-    answer2: "Baku Baku",
-    answer3: "Gomu Gomu",
-    answer4: "Yomi Yomi",
-    correct: 3
+    answers: [
+        { text: "Bara Bara", correct: false },
+        { text: "Baku Baku", correct: false },
+        { text: "Gomu Gomu", correct: true },
+        { text: "Yomi Yomi", correct: false }
+    ]
 }, {
     question: "What is the name of the Straw Hats Boat?",
-    answer1: "Thousand Sunny",
-    answer2: "Jack Sparrow",
-    answer3: "Ron Burgandy",
-    answer4: "Going Merry",
-    correct: 1
+    answers: [
+        { text: "Thousand Sunny", correct: true },
+        { text: "Jack Sparrow", correct: false },
+        { text: "Ron Burgandy", correct: false },
+        { text: "Going Merry", correct: false }
+    ]
+
 }, {
     question: "Who is Monkey D. Luffy's father?",
-    answer1: "Shanks",
-    answer2: "Dragon",
-    answer3: "Garp",
-    answer4: "Rayleigh",
-    correct: 2
+    answers: [
+        { text: "Shanks", correct: false },
+        { text: "Dragon", correct: true },
+        { text: "Garp", correct: false },
+        { text: "Rayleigh", correct: false }
+    ]
 }, {
     question: "Who is Monkey D. Luffy's brother?",
-    answer1: "Portgas D. Ace",
-    answer2: "Gol D. Roger",
-    answer3: "Zoro",
-    answer4: "Sanji",
-    correct: 1
+    answers: [
+        { text: "Portgas D. Ace", correct: true },
+        { text: "Gol D. Roger", correct: false },
+        { text: "Zoro", correct: false },
+        { text: "Sanji", correct: false }
+    ]
 }, {
     question: "What is the name of the ability that allows the user to make others pass out",
-    answer1: "Karate",
-    answer2: "Tae Kwon Do",
-    answer3: "Kung Fu",
-    answer4: "Haki",
-    correct: 4
+    answers: [
+        { text: "Karate", correct: false },
+        { text: "Tae Kwon Do", correct: false },
+        { text: "Kung Fu", correct: false },
+        { text: "Haki", correct: true }
+    ]
+
 }]
 
 function init() {
@@ -87,14 +117,24 @@ function init() {
 
 function startGame() {
     //click start to start game
+    console.log("start button clicked")
+        //set the timer to count down
+    isWin = false;
+    timerCount = 30;
+    questionIndex = 0;
+    startBtn.classList.add('hide');
+    quizContainer.classList.remove('hide');
+    nextQuestion();
     startCountdown();
-    renderQuestion();
+
 
 }
 
 function winGame() {
     //print you won game and add put saving the score here?
     //stop time
+    score = timerCount;
+    window.location.href = "score.html";
 
 }
 
@@ -106,41 +146,102 @@ function loseGame() {
 }
 
 function startCountdown() {
-    //set the timer to count down
-    var timeLeft = 30;
-
-    // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
-    var timeInterval = setInterval(function() {
-        // As long as the `timeLeft` is greater than 1
-        if (timeLeft > 1) {
-            // Set the `textContent` of `timeEl` to show the remaining seconds
-            timeEl.textContent = 'Time: ' + timeLeft;
-            // Decrement `timeLeft` by 1
-            timeLeft--;
-        } else if (!isClickAnswer) {
-            // Decrement 'timeLeft' by 10 for penalty 
-            timeLeft - 10;
-            // Set the `textContent` of `timeEl` to show the remaining seconds
-            timeEl.textContent = 'Time: ' + timeLeft;
-        } else {
-            // Once `timeLeft` gets to 0, set `timeEl` to an empty string
-            timeEl.textContent = '';
-            // Use `clearInterval()` to stop the timer
-            clearInterval(timeInterval);
-            // Call the `loseGame()` function
+    // Sets timer
+    timer = setInterval(function() {
+        timerCount--;
+        timeEl.textContent = "Time: " + timerCount + "s";
+        if (timerCount >= 0) {
+            // Tests if win condition is met
+            if (isWin && timerCount > 0) {
+                // Clears interval and stops timer
+                clearInterval(timer);
+                winGame();
+            }
+        }
+        // Tests if time has run out
+        if (timerCount === 0) {
+            // Clears interval
+            clearInterval(timer);
             loseGame();
         }
     }, 1000);
 }
 
-function renderQuestion() {
+function checkWin() {
+    if (questionIndex === questionIndex.length) {
+        isWin = true;
+        winGame();
+    }
+}
+
+function nextQuestion() {
+    resetState();
+    renderQuestion(questionPool[questionIndex]);
+
+}
+
+function renderQuestion(question) {
     //display question and answers
     //display the question
-    var currentQuestion =
-        //randomize the question, i think this would work
-        // var questionDisplay = Math.floor(Math.random() * questionLeft.length);
-        // currentQuestion= questionLeft[questionDisplay];
+    //randomize the question, i think this would work
+    // var questionDisplay = Math.floor(Math.random() * questionLeft.length);
+    // currentQuestion= questionLeft[questionDisplay];
+    questionEl.innerText = question.question;
+    question.answers.forEach(function(answer) {
+        const button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('btn')
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener('click', selectAnswer)
+        answersEl.appendChild(button)
+    })
 
+}
+
+function resetState() {
+    clearStatusClass(document.body)
+    nextBtn.classList.add('hide')
+    while (answersEl.firstChild) {
+        answersEl.removeChild(answersEl.firstChild)
+    }
+}
+
+function selectAnswer(e) {
+    const selectedButton = e.target
+    const correct = selectedButton.dataset.correct
+    if (correct) {
+        timerCount = timerCount + 15;
+    } else {
+        timerCount = timerCount - 15;
+    }
+    setStatusClass(document.body, correct)
+    Array.from(answersEl.children).forEach(function(button) {
+        setStatusClass(button, button.dataset.correct)
+    })
+    if (questionPool.length > questionIndex + 1) {
+        nextBtn.classList.remove('hide')
+    } else {
+        startButton.innerText = 'Restart'
+        startButton.classList.remove('hide')
+    }
+}
+
+function setStatusClass(element, correct) {
+    clearStatusClass(element)
+    if (correct) {
+        element.classList.add('correct');
+
+    } else {
+        element.classList.add('wrong');
+
+    }
+}
+
+function clearStatusClass(element) {
+    element.classList.remove('correct')
+    element.classList.remove('wrong')
 }
 
 //need an event listener to listen for the correct answer button being pressed
