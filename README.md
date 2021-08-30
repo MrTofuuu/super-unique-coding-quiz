@@ -19,8 +19,8 @@ This app will run in the browser and will feature dynamically updated HTML and C
 
 ## Screenshots
 
-![Password Generator Home](home.png)
-![Password Generator Generated](generated.png)
+![Password Generator Home](./assets/codingquiz-start.png)
+![Password Generator Generated](./assets/codingquiz-question.png)
 
 ### **Links**
 
